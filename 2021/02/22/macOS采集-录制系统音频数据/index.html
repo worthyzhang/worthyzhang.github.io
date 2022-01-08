@@ -17,16 +17,24 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>Hexo</title>
-  <meta property="og:type" content="website">
-<meta property="og:title">
-<meta property="og:url" content="http://worthyzhang.com/index.html">
+  <title>macOS采集/录制系统音频数据 | Hexo</title>
+  <meta name="description" content="PC端音视频相关应用往往会涉及到系统音频采集相关需求。例如音视频通信应用在屏幕共享场景下，用户除了共享屏幕内容之外，往往需要共享音频数据。目前macOS没有系统API可以直接获取输出到播放设备的音频数据，这就需要通过别的办法来采集系统音频。由于macOS开发相关资料较少，完成这个需求也花了点时间，在这里将思路做个分享，希望能帮助到有这方面需求的朋友。 技术背景macOS音频设备管理macOS支持管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="macOS采集&#x2F;录制系统音频数据">
+<meta property="og:url" content="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name">
+<meta property="og:description" content="PC端音视频相关应用往往会涉及到系统音频采集相关需求。例如音视频通信应用在屏幕共享场景下，用户除了共享屏幕内容之外，往往需要共享音频数据。目前macOS没有系统API可以直接获取输出到播放设备的音频数据，这就需要通过别的办法来采集系统音频。由于macOS开发相关资料较少，完成这个需求也花了点时间，在这里将思路做个分享，希望能帮助到有这方面需求的朋友。 技术背景macOS音频设备管理macOS支持管">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/1240-20220108191538456.png">
+<meta property="og:image" content="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/1240-20220108191546693.png">
+<meta property="article:published_time" content="2021-02-22T19:14:10.000Z">
+<meta property="article:modified_time" content="2022-01-08T11:37:35.096Z">
 <meta property="article:author" content="worthy zhang">
+<meta property="article:tag" content="macOS">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/1240-20220108191538456.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://worthyzhang.com/index.html">
+  <link rel="canonical" href="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/index.html">
   
     <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
   
@@ -334,235 +342,169 @@
 </aside>
 
   
-  <main class="main" role="main">
   
-  <div class="content article-list">
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-macOS采集-录制系统音频数据" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
+    <div class="article-header">
+      
+        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/">macOS采集/录制系统音频数据</a>
+    <h1 class="article-title" itemprop="name">
+      macOS采集/录制系统音频数据
     </h1>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/" class="article-date">
-	  <time datetime="2021-02-22T19:14:10.000Z" itemprop="datePublished">2月 22</time>
+	  <time datetime="2021-02-22T19:14:10.000Z" itemprop="datePublished">2021-02-22</time>
 	</a>
 </span>
-    
+        
   <span class="article-category">
     <i class="icon icon-folder"></i>
     <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
   </span>
 
-    
+        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
 	<a class="article-tag-link-link" href="/tags/macOS/" rel="tag">macOS</a>
   </span>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
+        
 
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/03/mp4%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%87%8D%E7%82%B9%E8%A7%A3%E6%9E%90/">mp4文件格式重点解析</a>
-    </h1>
-  
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>PC端音视频相关应用往往会涉及到系统音频采集相关需求。例如音视频通信应用在屏幕共享场景下，用户除了共享屏幕内容之外，往往需要共享音频数据。目前macOS没有系统API可以直接获取输出到播放设备的音频数据，这就需要通过别的办法来采集系统音频。由于macOS开发相关资料较少，完成这个需求也花了点时间，在这里将思路做个分享，希望能帮助到有这方面需求的朋友。</p>
+<h1 id="技术背景"><a href="#技术背景" class="headerlink" title="技术背景"></a>技术背景</h1><h2 id="macOS音频设备管理"><a href="#macOS音频设备管理" class="headerlink" title="macOS音频设备管理"></a>macOS音频设备管理</h2><p>macOS支持管理多个音频输入输出设备，可以使用“音频 MIDI 设置”来设置如麦克风和多声道音频接口。<br><img src="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/1240-20220108191538456.png" alt="image.png"></p>
+<p>音频 MIDI 设置”界面如上图所示，左侧列表展示了所有音频输入输出设备，例如内建麦克风、扬声器、AirPods、通过数据线连接端iPhone设备，右侧界面支持调节设备端具体参数，例如音量等。</p>
+<p>我们可以通过右键选择设备，将其设为系统默认的输入输出设备。设为默认设备后，设备列表上会有一个小图标显示，同时，系统会默认在对应的设备上采集、播放音频数据。当然，应用也依然可以选择特定设备采集、播放音频，例如Abode公司的Audition中可以通过设置选择输入输出设备。</p>
+<h2 id="switchaudio-osx"><a href="#switchaudio-osx" class="headerlink" title="switchaudio-osx"></a>switchaudio-osx</h2><p>switchaudio-osx是一款开源项目，支持命令行设置macOS默认输入输出音频设备。这个开源项目为我们通过代码切换系统音频设备提供了极大帮助。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/deweller/switchaudio-osx">https://github.com/deweller/switchaudio-osx</a></p>
+<h2 id="KEXT内核扩展"><a href="#KEXT内核扩展" class="headerlink" title="KEXT内核扩展"></a>KEXT内核扩展</h2><p>KEXT是macOS的内核扩展程序，通常用于系统驱动程序。内核扩展运行于内核态，支持动态加载。</p>
+<p>我们可以在Xcode中选择“general kernel extension”创建内核扩展，基于IOKit接口实现驱动程序，生成的产物以kext作为后缀名。</p>
+<p>加载驱动需要首先将kext文件拷贝到系统目录（需要管理员权限）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Library/Extensions </span><br></pre></td></tr></table></figure>
 
+<p>加载驱动：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kextload /path/to/kext.kext</span><br></pre></td></tr></table></figure>
+
+<p>卸载驱动：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kextunload /path/to/kext.kext</span><br></pre></td></tr></table></figure>
+<h2 id="Soundflower"><a href="#Soundflower" class="headerlink" title="Soundflower"></a>Soundflower</h2><p>Soundflower是mac端开源的kext内核扩展程序，它虚拟了一套音频采集、播放设备驱动，直接将播放数据传给采集设备，实现音频数据环路。通过将系统默认输入输出设备设置为Soundflower，就可以采集到系统播放的音频数据。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/RogueAmoeba/Soundflower-Original">https://github.com/RogueAmoeba/Soundflower-Original</a>  </p>
+<p><strong>Update(2021.6.9):</strong></p>
+<p>新发布的macOS11安全管理策略变得更为严格，由于kext运行在内核态，系统对其做了更多限制，不再建议使用。官方说明如下：<a target="_blank" rel="noopener" href="https://support.apple.com/zh-cn/guide/deployment/depa5fb8376f/web">macOS 中的系统和内核扩展</a></p>
+<p>作为替代，建议使用基于CoreAudio框架实现的虚拟设备插件。CoreAudio插件运行在用户态，插件加载后，作用于Soundflower基本一致。</p>
+<p>相关资料可以参考：<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/coreaudio/building_an_audio_server_plug-in_and_driver_extension/">Building an Audio Server Plug-in and Driver Extension</a></p>
+<h1 id="方案实现"><a href="#方案实现" class="headerlink" title="方案实现"></a>方案实现</h1><p>介绍完以上的技术背景，其实就可以设计出macOS系统音频数据采集方案：</p>
+<p><img src="/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/1240-20220108191546693.png" alt="image.png"></p>
+<p>如上图所示，用户App通过mac系统播放音频。</p>
+<p>我们可以在启动系统音频采集功能时将系统音频播放设备设置为Soundflower虚拟扬声器，同时在App中将输入设为Soundflower虚拟麦克风和硬件麦克风，将混音后的音频数据输出到硬件扬声器。关闭系统音频采集功能将系统设置还原。理论上，这就已经可以满足我们的需求了。</p>
+<h1 id="关键调用流程"><a href="#关键调用流程" class="headerlink" title="关键调用流程"></a>关键调用流程</h1><p>为了实现以上方案，有以下关键调用流程：</p>
+<ol>
+<li> 第一次调用内录接口时，请求管理员权限，将Soundflower.kext内核扩展拷贝到系统目录</li>
+<li> 调用kextload命令加载Soundflower.kext</li>
+<li> 将系统默认音频播放设备设置为Soundflower虚拟扬声器</li>
+<li> App中将音频采集设备设置为Soundflower虚拟麦克风</li>
+<li> App中如果有硬件麦克风采集需求，则另起一路硬件麦克风采集</li>
+<li> App中将音频播放设备设置为硬件扬声器</li>
+</ol>
+<p>需要关闭该功能时，需要执行如下调用流程：</p>
+<ol>
+<li> 将系统默认输入输出设备还原</li>
+<li> 卸载Soundflower.kext</li>
+</ol>
+<p>以上调用流程并不复杂，关键代码都可以从以上介绍的开源项目中找到参考，需要注意一下几点：</p>
+<p>加载/卸载kext需要系统提权，macOS提权可以选择<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/security/authorizationref">AuthorizationRef</a>或者苹果官方推荐的<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/samplecode/SMJobBless/Listings/ReadMe_txt.html#//apple_ref/doc/uid/DTS40010071-ReadMe_txt-DontLinkElementID_3">SMJobBless</a></p>
+<p>切换系统默认音频设备代码实现可以参考switchaudio-osx项目中<a target="_blank" rel="noopener" href="https://github.com/deweller/switchaudio-osx/blob/master/audio_switch.c">audio_switch.c</a>相关代码</p>
+<p>至于mac端音频采集播放的代码实现就相对比较复杂了，不过幸运的是，谷歌WebRTC项目中<a target="_blank" rel="noopener" href="https://chromium.googlesource.com/external/webrtc/+/refs/heads/master/modules/audio_device/mac/audio_device_mac.cc">audio_device_mac.cc</a>已经有了一套实现</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>文本提供了macOS采集/录制系统音频数据的一种实现思路。具体代码实现过程中，还是有很多工作需要做的，例如系统提权如果要做的比较友好就需要用到<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/samplecode/SMJobBless/Listings/ReadMe_txt.html#//apple_ref/doc/uid/DTS40010071-ReadMe_txt-DontLinkElementID_3">SMJobBless</a>启动守护进程来实现。当然，这属于另外一个话题了，在此不再赘述。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://worthyzhang.com/2021/02/22/macOS%E9%87%87%E9%9B%86-%E5%BD%95%E5%88%B6%E7%B3%BB%E7%BB%9F%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE/" title="macOS采集/录制系统音频数据" target="_blank" rel="external">http://worthyzhang.com/2021/02/22/macOS采集-录制系统音频数据/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/worthyzhang" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/worthyzhang" target="_blank"><span class="text-dark">张文星Worthy</span><small class="ml-1x">Developer</small></a></h3>
+        <div>开发者</div>
+      </div>
+    </figure>
   </div>
+</div>
+
+
+    </div>
+  </article>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2019/04/03/mp4%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%87%8D%E7%82%B9%E8%A7%A3%E6%9E%90/" class="article-date">
-	  <time datetime="2019-04-03T09:19:17.000Z" itemprop="datePublished">4月 3</time>
-	</a>
-</span>
     
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </span>
-
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
     
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/AV/" rel="tag">AV</a>
-  </span>
+  </section>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/03/mp4%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%87%8D%E7%82%B9%E8%A7%A3%E6%9E%90/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/30/iOS%E5%AE%9E%E7%8E%B0Crash%E6%8D%95%E8%8E%B7%E4%B8%8E%E5%A0%86%E6%A0%88%E7%AC%A6%E5%8F%B7%E5%8C%96/">iOS实现Crash捕获与堆栈符号化</a>
-    </h1>
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
   
-
-  </div>
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/04/03/mp4%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E9%87%8D%E7%82%B9%E8%A7%A3%E6%9E%90/" title="mp4文件格式重点解析"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/08/30/iOS%E5%AE%9E%E7%8E%B0Crash%E6%8D%95%E8%8E%B7%E4%B8%8E%E5%A0%86%E6%A0%88%E7%AC%A6%E5%8F%B7%E5%8C%96/" class="article-date">
-	  <time datetime="2018-08-30T05:09:00.000Z" itemprop="datePublished">8月 30</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/iOS/" rel="tag">iOS</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/30/iOS%E5%AE%9E%E7%8E%B0Crash%E6%8D%95%E8%8E%B7%E4%B8%8E%E5%A0%86%E6%A0%88%E7%AC%A6%E5%8F%B7%E5%8C%96/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/10/iOS11%E7%A1%AC%E8%A7%A3VideoToolBox%E6%94%AF%E6%8C%81HEVC%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F/">iOS11硬解VideoToolBox支持HEVC视频格式</a>
-    </h1>
   
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/03/10/iOS11%E7%A1%AC%E8%A7%A3VideoToolBox%E6%94%AF%E6%8C%81HEVC%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F/" class="article-date">
-	  <time datetime="2018-03-10T10:07:22.000Z" itemprop="datePublished">3月 10</time>
-	</a>
-</span>
+  <div class="bar-right">
     
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/iOS/" rel="tag">iOS</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/10/iOS11%E7%A1%AC%E8%A7%A3VideoToolBox%E6%94%AF%E6%8C%81HEVC%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/10/macOS%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">macOS常用开发工具</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2017/05/10/macOS%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="article-date">
-	  <time datetime="2017-05-10T13:09:00.000Z" itemprop="datePublished">5月 10</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/macOS/" rel="tag">macOS</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2017/05/10/macOS%E5%B8%B8%E7%94%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/26/iOS%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/">iOS常用图像格式转换</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2016/12/26/iOS%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/" class="article-date">
-	  <time datetime="2016-12-26T07:59:00.000Z" itemprop="datePublished">12月 26</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/iOS/" rel="tag">iOS</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/12/26/iOS%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/#comments" class="article-comment-link">评论</a></span>
-    
-  </p>
-</article>
-
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
     
   </div>
+  </div>
+</nav>
+  
 
-   
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -621,6 +563,33 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
    
 
 
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
